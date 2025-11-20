@@ -1,0 +1,18 @@
+# Entorno Virtual
+venv/
+__pycache__/
+*.py[cod]
+
+# Archivos de ejecución y logs
+*.log
+shipping_data.db
+
+# Carpetas de imágenes
+input_images/
+processed_images/
+error_images/
+debug_output/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
