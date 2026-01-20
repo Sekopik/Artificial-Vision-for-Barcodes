@@ -8,7 +8,7 @@ Este software monitorea una carpeta en tiempo real, procesa imágenes con defect
 
 - **Arquitectura Asíncrona:** Implementación Producer-Consumer con `Watchdog` y `Queue` para maximizar el rendimiento I/O.
 - **Detección Inteligente (YOLOv8):** Localización precisa de etiquetas mediante modelo orientado (OBB) en `best.pt`.
-- **Preprocesamiento "Quirúrgico":**
+- **Preprocesamiento \"Quirúrgico\":**
     - Eliminación de brillos en plásticos (CLAHE).
     - Reconstrucción de fuentes de puntos (Dilatación morfológica).
     - Upscaling inteligente para códigos pequeños.
@@ -20,41 +20,50 @@ Este software monitorea una carpeta en tiempo real, procesa imágenes con defect
 
 ## 📋 Requisitos del Sistema
 
-El proyecto requiere estrictamente **Python 3.11** por compatibilidad de librerías de tensores y visión.
+El proyecto requiere estrictamente **Python 3.11** por compatibilidad de librerías de tensores y visión artificial.
 
-### Ubuntu 24.04 LTS (o superior)
-Dado que Ubuntu 24.04 trae Python 3.12 por defecto, es necesario instalar la versión 3.11 manualmente:
+### Configuración en Ubuntu 24.04 LTS (o superior)
+Dado que Ubuntu 24.04 trae versiones más nuevas de Python, es necesario instalar la versión 3.11 manualmente:
 
 ```bash
 sudo apt update
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt install python3.11 python3.11-venv python3.11-dev
-⚙️ Instalación
-Sigue estos pasos para desplegar el entorno de desarrollo:
-Clonar el repositorio:
-code
-Bash
-git clone https://github.com/Sekopik/Artificial-Vision-for-Barcodes.git
-cd Artificial-Vision-for-Barcodes
-Crear el entorno virtual (VENV):
-Es fundamental usar el binario de Python 3.11 explícitamente:
-code
-Bash
-python3.11 -m venv venv
-Activar el entorno:
-code
-Bash
-source venv/bin/activate
-(Verás (venv) al inicio de tu terminal).
-Instalar dependencias:
-code
-Bash
-pip install --upgrade pip
-pip install -r requirements.txt
-🔧 Configuración (config.ini)
-El sistema se controla mediante el archivo config.ini. Asegúrate de que los parámetros coincidan con tu entorno:
-code
-Ini
+```
+
+## ⚙️ Instalación
+
+Sigue estos pasos para desplegar el entorno de desarrollo en Linux/Ubuntu:
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/Sekopik/Artificial-Vision-for-Barcodes.git
+   cd Artificial-Vision-for-Barcodes
+   ```
+
+2. **Crear el entorno virtual (VENV):**
+   Es fundamental usar el binario de Python 3.11 explícitamente:
+   ```bash
+   python3.11 -m venv venv
+   ```
+
+3. **Activar el entorno:**
+   ```bash
+   source venv/bin/activate
+   ```
+   *(Deberías ver `(venv)` al inicio de tu línea de comandos).*
+
+4. **Instalar dependencias:**
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+
+## 🔧 Configuración (`config.ini`)
+
+El sistema se controla mediante el archivo `config.ini`. Asegúrate de que los parámetros coincidan con tu entorno actual:
+
+```ini
 [PATHS]
 input_folder = ./input_images
 processed_folder = ./processed_images
@@ -78,20 +87,27 @@ yolo_imgsz = 1024
 
 ; Confianza mínima para aceptar un caracter OCR
 ocr_min_confidence = 0.5
-🚀 Uso
-Ejecutar el programa principal:
-code
-Bash
-python main.py
-Al iniciar, el sistema creará automáticamente las carpetas de trabajo (input_images, processed_images, etc.) si no existen.
-Procesar imágenes:
-Arrastra o copia tus imágenes en la carpeta input_images/. El sistema las detectará automáticamente.
-Detener el sistema:
-Si se abre una ventana de visualización: Pulsa q o Esc.
-Desde la terminal: Pulsa Ctrl + C (o Ctrl + \ si el proceso está ocupado).
-📂 Estructura del Proyecto
-main.py: Orquestador principal y gestión de hilos (Watchdog + Workers).
-image_processor.py: Núcleo de Visión Artificial (OpenCV + YOLO + OCR).
-database_handler.py: ORM para gestión de base de datos SQLite.
-config.py: Singleton para la gestión centralizada de la configuración.
-best.pt: Pesos del modelo YOLO entrenado para detección de etiquetas.
+```
+
+## 🚀 Uso
+
+1. **Ejecutar el programa principal:**
+   ```bash
+   python main.py
+   ```
+   *Al iniciar, el sistema creará automáticamente las carpetas de trabajo (`input_images`, `processed_images`, etc.) si no existen.*
+
+2. **Procesar imágenes:**
+   Arrastra o copia tus imágenes en la carpeta `input_images/`. El sistema las detectará automáticamente.
+
+3. **Detener el sistema:**
+   *   **Opción A (Visual):** Si se abre una ventana de visualización, pulsa la tecla **`q`** o **`Esc`**.
+   *   **Opción B (Terminal):** Pulsa **`Ctrl + C`** en la terminal. Si el proceso está muy ocupado, usa `Ctrl + \\`.
+
+## 📂 Estructura del Proyecto
+
+- `main.py`: Orquestador principal y gestión de hilos (Watchdog + Workers).
+- `image_processor.py`: Núcleo de Visión Artificial (OpenCV + YOLO + OCR).
+- `database_handler.py`: ORM para gestión de base de datos SQLite.
+- `config.py`: Singleton para la gestión centralizada de la configuración.
+- `best.pt`: Pesos del modelo YOLO entrenado para detección de etiquetas.
